@@ -51,8 +51,26 @@ footer {
 
 }
 
+.logo-pj {
+  margin-top: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  width: 100px;
+  height: 100px;
+  float: left;
+  border-radius: 15px;
+}
 
+.LOGOS {
+  margin-left: 20%;
+  margin-right: 20%;
+  text-align: center;
+}
 
+.inline-block {
+  display: inline-block;
+}
 
 
 /* Aqui começa a MAIN */
@@ -157,6 +175,8 @@ span em {
   border-radius: 15px;
 }
 
+
+
 .terceira-jornada {
   margin-top: 60px;
   margin-bottom: 60px;
@@ -174,7 +194,7 @@ span em {
 /* Aqui começa a SESSÃO DE ESTUDOS */
 
 .estudos {
-  margin:   40px 0 0 0;
+  margin: 100px 0 0 0;
   text-align: left;
   padding: 75px 15% 60px 15%;
   color: #fdfafa;
