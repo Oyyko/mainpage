@@ -219,6 +219,10 @@ span em {
   font-size: 22px;
 }
 
+.estudos em {
+  font-style: italic;
+}
+
 .botao {
   margin: 25px 0 15px 10%;
 
