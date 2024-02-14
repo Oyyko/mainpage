@@ -11,6 +11,7 @@ header,
 body,
 footer {
   font-family: 'Poppins', sans-serif;
+  text-align: center;
 }
 
 /* Aqui é o cabecalho */
@@ -122,7 +123,7 @@ h1:before {
   border-radius: 15px;
 }
 
-.formatacao-jornadas {
+.icon-show {
   text-align: left;
   margin-bottom: 21px;
   margin-left: 25%;
@@ -137,7 +138,7 @@ h2 {
   margin-bottom: 10px;
 }
 
-.formatacao-jornadas p {
+.icon-show p {
   font-family: 'Poppins', sans-serif;
   font-weight: thin;
   color: #505050;
@@ -151,12 +152,12 @@ span em {
   color: #3CB371
 }
 
-.formatacao-jornadas strong {
+.icon-show strong {
   font-weight: bold;
   /* text-decoration: underline; */
 }
 
-.formatacao-jornadas xx {
+.icon-show xx {
   font-weight: bold;
   color: #6DABE4;
   /* text-decoration: underline; */
@@ -254,6 +255,8 @@ span em {
 .boxes {
   margin: 90px 15% 90px 15%;
   text-align: center;
+  line-height: 200%;
+  font-size: x-large;
 }
 
 .lista-boxes {
