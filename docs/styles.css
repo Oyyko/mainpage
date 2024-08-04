@@ -63,18 +63,24 @@ footer {
 }
 
 .container {
-  display: flex; /* 启用flex布局 */
-  align-items: center; /* 确保所有子元素从容器的顶部开始对齐 */
+  display: flex;
+  /* 启用flex布局 */
+  align-items: center;
+  /* 确保所有子元素从容器的顶部开始对齐 */
 }
 
 .image {
-  width: 100px; /* 图片宽度，根据实际需要调整 */
-  height: auto; /* 图片高度自动，保持原始比例 */
-  margin-right: 20px; /* 右侧间隔 */
+  width: 100px;
+  /* 图片宽度，根据实际需要调整 */
+  height: auto;
+  /* 图片高度自动，保持原始比例 */
+  margin-right: 20px;
+  /* 右侧间隔 */
 }
 
 .content {
-  flex-grow: 1; /* 内容区域占据剩余空间 */
+  flex-grow: 1;
+  /* 内容区域占据剩余空间 */
 }
 
 .blog-list {
@@ -82,20 +88,34 @@ footer {
   flex-direction: column;
   width: 100%;
 }
+
 .blog-item {
   display: flex;
   justify-content: space-between;
   padding: 10px;
   border-bottom: 1px solid #ddd;
 }
+/* 
 .blog-item .date {
-  flex: 1;
+  /* flex: 3;
+   */
+    /*font-family: "Edu AU VIC WA NT Hand";
 }
+ */
+
 .blog-item .link {
   flex: 3;
-  text-align: right;
+  text-align: left;
 }
+
 .blog-item .link a {
+  /* font-family: "Edu AU VIC WA NT Hand"; */
   text-decoration: none;
   color: #007bff;
+}
+
+pre,
+code {
+  font-family: "IBM Plex Mono";
+  font-size: 14px;
 }

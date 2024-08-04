@@ -1,6 +1,8 @@
-#!/usr
+from datetime import datetime
+from pygments.formatters import HtmlFormatter
 import markdown
 import sys
+
 
 def convert_md_to_html(md_filename):
     # Read the Markdown file
@@ -8,8 +10,8 @@ def convert_md_to_html(md_filename):
         markdown_text = md_file.read()
 
     # Convert Markdown to HTML
-    html_content = markdown.markdown(markdown_text)
-    
+    html_content = markdown.markdown(markdown_text, extensions=['fenced_code', 'meta'])
+
     current_date = datetime.now().strftime("%B %d, %Y")
 
     # HTML template with the specified header and footer
@@ -31,8 +33,10 @@ def convert_md_to_html(md_filename):
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/atom-one-light.min.css">
+</head>
 </head>
 
 <body>
@@ -52,6 +56,9 @@ def convert_md_to_html(md_filename):
       <p>© 2024 Colin Zhang. All rights reserved.</p>
       <p>Last updated on {current_date}.</p>
   </footer>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
 </body>
 
 </html>
@@ -63,6 +70,7 @@ def convert_md_to_html(md_filename):
         html_file.write(html_template)
 
     print(f"Converted {md_filename} to {html_filename}")
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:

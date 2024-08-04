@@ -16,8 +16,10 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/atom-one-light.min.css">
+</head>
 </head>
 
 <body>
@@ -31,19 +33,14 @@
     </nav>
   </header>
 
-  <hr />
-<p>title: "Value_categories_in_Cpp"
-date: 2022-08-23T15:20:51+08:00
-tags: [Cpp]</p>
-<hr />
-<h2>Intro</h2>
-<p><code>cpp
-#define IS_XVALUE(expr) \
+  <h2>Intro</h2>
+<pre><code class="language-cpp">#define IS_XVALUE(expr) \
 (is_rvalue_reference&lt;decltype((expr))&gt;{})
 #define IS_PRVALUE(expr) \
 (!is_reference&lt;decltype((expr))&gt;{})
 #define IS_LVALUE(expr) \
-(is_lvalue_reference&lt;decltype((expr))&gt;{})</code></p>
+(is_lvalue_reference&lt;decltype((expr))&gt;{})
+</code></pre>
 <p>This is a method I recently discovered to determine which value category an <strong>expression</strong> is. I'll explain why it works later.</p>
 <p>First, let's take a look at value categories in C++.</p>
 <p>One of the most important things you should notice before you start is that value categories are not a property about <strong>values</strong>, but rather a property about <strong>expressions</strong>. Actually it depends on how you understand <strong>value</strong>, I looked through the C++ standard but <strong>it seems they don't define what the term value means</strong>. However, we all know what an expression is. (in case you don't know, you can refer to cppreference)</p>
@@ -54,16 +51,16 @@ tags: [Cpp]</p>
 <p>The one that has identity and can be moved is called XVALUE (eXpiring value).
 The one that has identity but cannot be moved is called LVALUE.
 The one that has no identity but can be moved is called PRVALUE.</p>
-<p>For example, these are examples for XVALUE:
-<code>cpp
-std::move(x);
-a.m, the member of object expression, where a is an rvalue and m is a non-static data member of non-reference type;</code></p>
+<p>For example, these are examples for XVALUE:</p>
+<pre><code class="language-cpp">std::move(x);
+a.m, the member of object expression, where a is an rvalue and m is a non-static data member of non-reference type;
+</code></pre>
 <h2>Temporary materialization</h2>
 <p>The most useful example to help you understand XVALUE is: Temporary materialization.</p>
-<p><code>cpp
-struct S { int m; }; 
+<pre><code class="language-cpp">struct S { int m; }; 
 int i = S().m; // member access expects glvalue as of C++17;
-               // S() prvalue is converted to xvalue</code></p>
+               // S() prvalue is converted to xvalue
+</code></pre>
 <p>As the cppreference goes: A prvalue of any complete type T can be converted to an xvalue of the same type T. This conversion initializes a temporary object of type T from the prvalue by evaluating the prvalue with the temporary object as its result object, and produces an xvalue denoting the temporary object. If T is a class or array of class type, it must have an accessible and non-deleted destructor.</p>
 <p>So the key difference between XVALUE and PRVALUE is that can we <strong>reuse</strong> the resources of it. We cannot reuse the number 3 or 3.7 but <strong>we can reuse the memory allocated for a temporary string object</strong>.</p>
 <h2>Decltype and value categories</h2>
@@ -78,9 +75,12 @@ int i = S().m; // member access expects glvalue as of C++17;
 <p>In particular, std::move produces an xvalue expression that identifies its argument t. It is exactly equivalent to a static_cast to an rvalue reference type.</p>
 
   <footer>
-    <p>© 2024 Colin Zhang. All rights reserved.</p>
-    <p>Last updated on August 3, 2024.</p>
+      <p>© 2024 Colin Zhang. All rights reserved.</p>
+      <p>Last updated on August 04, 2024.</p>
   </footer>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
 </body>
 
 </html>

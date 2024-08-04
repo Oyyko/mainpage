@@ -1,6 +1,6 @@
 ---
-title: "Value_categories_in_Cpp"
-date: 2022-08-23T15:20:51+08:00
+title: Value categories in Cpp
+date: 2022-08-23
 tags: [Cpp]
 ---
 
