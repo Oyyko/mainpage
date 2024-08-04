@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/colin.jpg">
+
+  <!-- Need to change in every new file  -->
+  <link rel="canonical" href="https://www.oyyko.com/blog">
+
+  <title>Colin Zhang</title>
+  <!-- <meta name="title" content="Colin Zhang"> -->
+  <!-- <meta name="description" content="Colin Zhang's personal website"> -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+  <header>
+    <h1>Colin Zhang</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about/">About</a>
+      <a href="/resume.pdf">Resume</a>
+    </nav>
+  </header>
+
+  <hr />
+<p>title: "Value_categories_in_Cpp"
+date: 2022-08-23T15:20:51+08:00
+tags: [Cpp]</p>
+<hr />
+<h2>Intro</h2>
+<p><code>cpp
+#define IS_XVALUE(expr) \
+(is_rvalue_reference&lt;decltype((expr))&gt;{})
+#define IS_PRVALUE(expr) \
+(!is_reference&lt;decltype((expr))&gt;{})
+#define IS_LVALUE(expr) \
+(is_lvalue_reference&lt;decltype((expr))&gt;{})</code></p>
+<p>This is a method I recently discovered to determine which value category an <strong>expression</strong> is. I'll explain why it works later.</p>
+<p>First, let's take a look at value categories in C++.</p>
+<p>One of the most important things you should notice before you start is that value categories are not a property about <strong>values</strong>, but rather a property about <strong>expressions</strong>. Actually it depends on how you understand <strong>value</strong>, I looked through the C++ standard but <strong>it seems they don't define what the term value means</strong>. However, we all know what an expression is. (in case you don't know, you can refer to cppreference)</p>
+<p>Anyway, there are 3 kinds of value categories. They are called LVALUE, PRVALUE, XVALUE.</p>
+<p>We know you can write x=3 but not 3=x. Since 3 and x are both expressions, there must be some qualitative difference between them. Since x can be placed to the left of the equals sign(assignment sign), so we call it an lvalue. 3 is called an rvalue accordingly.</p>
+<p>OK. Now I know the difference between LVALUE and RVALUE, but what is PRVALUE and XVALUE?</p>
+<p>Well, there are two dimensions to the form of expressions. 1. Does the expression have an identity? 2. Can the expression be moved?</p>
+<p>The one that has identity and can be moved is called XVALUE (eXpiring value).
+The one that has identity but cannot be moved is called LVALUE.
+The one that has no identity but can be moved is called PRVALUE.</p>
+<p>For example, these are examples for XVALUE:
+<code>cpp
+std::move(x);
+a.m, the member of object expression, where a is an rvalue and m is a non-static data member of non-reference type;</code></p>
+<h2>Temporary materialization</h2>
+<p>The most useful example to help you understand XVALUE is: Temporary materialization.</p>
+<p><code>cpp
+struct S { int m; }; 
+int i = S().m; // member access expects glvalue as of C++17;
+               // S() prvalue is converted to xvalue</code></p>
+<p>As the cppreference goes: A prvalue of any complete type T can be converted to an xvalue of the same type T. This conversion initializes a temporary object of type T from the prvalue by evaluating the prvalue with the temporary object as its result object, and produces an xvalue denoting the temporary object. If T is a class or array of class type, it must have an accessible and non-deleted destructor.</p>
+<p>So the key difference between XVALUE and PRVALUE is that can we <strong>reuse</strong> the resources of it. We cannot reuse the number 3 or 3.7 but <strong>we can reuse the memory allocated for a temporary string object</strong>.</p>
+<h2>Decltype and value categories</h2>
+<p>Decltype is a good tool to help us determine the category of an expression. </p>
+<p>Because its behavior is to generate an rvalue reference for XVALUE, an unreferenced type for PRVALUE, and an lvalue reference for LVALUE.</p>
+<p>Well, someone may argue that if <code>int x=3;</code> then <code>x is an LVALUE but decltype(x) is int itself rather than int&amp;.</code> That's because the special case for id-expr in the behavior of decltype.</p>
+<p>If the argument is an unparenthesized id-expression or an unparenthesized class member access expression, then decltype yields the type of the entity named by this expression. If there is no such entity, or if the argument names a set of overloaded functions, the program is ill-formed.</p>
+<p>So the right way is <code>int x=3; decltype((x)) xref=x;</code>. Here the type of <code>xref</code> is <code>int&amp;</code>.</p>
+<h2>std::move</h2>
+<p>The famous function <code>move</code> actually does nothing to do with "move something". Actually, it just change the value category of the parameter from LVALUE to XVALUE. In the most cases, you should call move using an LVALUE.</p>
+<p>std::move is used to <strong>indicate</strong> that an object t may be "moved from", i.e. allowing the efficient transfer of resources from t to another object.</p>
+<p>In particular, std::move produces an xvalue expression that identifies its argument t. It is exactly equivalent to a static_cast to an rvalue reference type.</p>
+
+  <footer>
+    <p>© 2024 Colin Zhang. All rights reserved.</p>
+    <p>Last updated on August 3, 2024.</p>
+  </footer>
+</body>
+
+</html>

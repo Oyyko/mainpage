@@ -1,0 +1,101 @@
+body {
+  font-family: "IBM Plex Sans";
+  margin: 0;
+  padding: 2% 30%;
+  line-height: 1.618;
+}
+
+header {
+  margin-bottom: 20px;
+}
+
+header h1 {
+  font-size: 2.5em;
+  margin: 0;
+}
+
+nav a {
+  margin-right: 15px;
+  text-decoration: none;
+  color: #007BFF;
+}
+
+.content h1 {
+  font-size: 2em;
+}
+
+.content a {
+  color: #007BFF;
+  text-decoration: none;
+}
+
+.content a:hover {
+  text-decoration: underline;
+}
+
+.contact-info {
+  /* font-family: "IBM Plex Sans"; */
+  margin: 20px 0;
+}
+
+.contact-info a {
+  display: block;
+  margin: 5px 0;
+}
+
+.faq {
+  margin-top: 40px;
+}
+
+.faq h2 {
+  font-size: 1.5em;
+}
+
+.faq p {
+  margin: 10px 0;
+}
+
+footer {
+  margin-top: 40px;
+  font-size: 0.9em;
+  color: #555;
+  text-align: center;
+}
+
+.container {
+  display: flex; /* 启用flex布局 */
+  align-items: center; /* 确保所有子元素从容器的顶部开始对齐 */
+}
+
+.image {
+  width: 100px; /* 图片宽度，根据实际需要调整 */
+  height: auto; /* 图片高度自动，保持原始比例 */
+  margin-right: 20px; /* 右侧间隔 */
+}
+
+.content {
+  flex-grow: 1; /* 内容区域占据剩余空间 */
+}
+
+.blog-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.blog-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+.blog-item .date {
+  flex: 1;
+}
+.blog-item .link {
+  flex: 3;
+  text-align: right;
+}
+.blog-item .link a {
+  text-decoration: none;
+  color: #007bff;
+}
