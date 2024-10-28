@@ -17,6 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Prata&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/atom-one-light.min.css">
 </head>
@@ -39,20 +40,13 @@
   <div class="post-date">2022-08-23</div>
 
   <!-- 分割线 -->
-  <hr class="divider">
 
   <!-- 目录部分开始 -->
   <div class="table-of-contents">
     <h2>Table of Contents</h2>
     <div class="toc">
 <ul>
-<li><a href="#intro">Intro</a><ul>
-<li><a href="#test1">TEST1</a><ul>
-<li><a href="#test2">TEST2</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li><a href="#intro">Intro</a></li>
 <li><a href="#temporary-materialization">Temporary materialization</a></li>
 <li><a href="#decltype-and-value-categories">Decltype and value categories</a></li>
 <li><a href="#stdmove">std::move</a></li>
@@ -85,8 +79,6 @@ The one that has no identity but can be moved is called PRVALUE.</p>
 <pre><code class="language-cpp">std::move(x);
 a.m, the member of object expression, where a is an rvalue and m is a non-static data member of non-reference type;
 </code></pre>
-<h3 id="test1">TEST1</h3>
-<h4 id="test2">TEST2</h4>
 <h2 id="temporary-materialization">Temporary materialization</h2>
 <p>The most useful example to help you understand XVALUE is: Temporary materialization.</p>
 <pre><code class="language-cpp">struct S { int m; }; 

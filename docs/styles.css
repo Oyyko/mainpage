@@ -1,88 +1,83 @@
-body {
-  font-family: "IBM Plex Sans";
-  margin: 0;
-  padding: 2% 30%;
-  line-height: 1.618;
+/* 变量定义 */
+:root {
+  --primary-color: #007BFF; /* 主色调 */
+  --secondary-color: #0056b3; /* 辅助色调 */
+  --text-color: #333;
+  --background-color: #fdfdfd;
+  --footer-background: #f5f5f5;
+  --font-family-body: 'IBM Plex Sans', sans-serif;
+  --font-family-headings: 'Prata', serif;
+  --font-family-mono: 'IBM Plex Mono', monospace;
 }
 
+/* 基础样式 */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family-body);
+  margin: 0;
+  padding: 2% 30%; /* 调整左右内边距为10% */
+  line-height: 1.618;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+/* 头部样式 */
 header {
   margin-bottom: 20px;
+  background-color: #ffffff;
+  padding: 10px 0; /* 调整内边距 */
+  /* border-bottom: 1px solid #eaeaea; */
 }
 
 header h1 {
+  font-family: var(--font-family-headings);
   font-size: 2.5em;
   margin: 0;
+  /* color: var(--primary-color); */
 }
 
 nav a {
   margin-right: 15px;
-  text-decoration: none;
-  color: #007BFF;
+  font-size: 1em;
+  color: var(--primary-color);
 }
 
-.content h1 {
-  font-size: 2em;
+nav a:last-child {
+  margin-right: 0;
 }
 
-.content a {
-  color: #007BFF;
-  text-decoration: none;
-}
-
-.content a:hover {
-  text-decoration: underline;
-}
-
-.contact-info {
-  /* font-family: "IBM Plex Sans"; */
-  margin: 20px 0;
-}
-
-.contact-info a {
-  display: block;
-  margin: 5px 0;
-}
-
-.faq {
-  margin-top: 40px;
-}
-
-.faq h2 {
-  font-size: 1.5em;
-}
-
-.faq p {
-  margin: 10px 0;
-}
-
-footer {
-  margin-top: 40px;
-  font-size: 0.9em;
-  color: #555;
-  text-align: center;
-}
-
+/* 内容区域 */
 .container {
   display: flex;
-  /* 启用flex布局 */
-  align-items: center;
-  /* 确保所有子元素从容器的顶部开始对齐 */
+  flex-direction: column;
 }
 
 .image {
   width: 100px;
-  /* 图片宽度，根据实际需要调整 */
   height: auto;
-  /* 图片高度自动，保持原始比例 */
   margin-right: 20px;
-  /* 右侧间隔 */
 }
 
 .content {
   flex-grow: 1;
-  /* 内容区域占据剩余空间 */
 }
 
+/* 博客列表 */
 .blog-list {
   display: flex;
   flex-direction: column;
@@ -96,31 +91,22 @@ footer {
   border-bottom: 1px solid #ddd;
 }
 
-/* 
-.blog-item .date {
-  /* flex: 3;
-   */
-/*font-family: "Edu AU VIC WA NT Hand";
-}
- */
-
 .blog-item .link {
   flex: 3;
   text-align: left;
 }
 
 .blog-item .link a {
-  /* font-family: "Edu AU VIC WA NT Hand"; */
   text-decoration: none;
-  color: #007bff;
+  color: var(--primary-color);
 }
 
+/* 代码块 */
 pre,
 code {
-  font-family: "IBM Plex Mono";
+  font-family: var(--font-family-mono);
   font-size: 14px;
 }
-
 
 /* 样式调整：目录部分 */
 .table-of-contents {
@@ -128,11 +114,12 @@ code {
 }
 
 .table-of-contents h2 {
+  font-family: var(--font-family-headings);
   font-size: 1.8em;
   margin-bottom: 15px;
-  /* border-bottom: 2px solid var(--primary-color); */
+  border-bottom: 2px solid var(--primary-color);
   padding-bottom: 5px;
-  /* color: var(--primary-color); */
+  color: var(--primary-color);
 }
 
 .table-of-contents .toc ul {
@@ -144,11 +131,12 @@ code {
 .table-of-contents .toc ul li {
   margin-bottom: 8px;
   position: relative;
-  padding-left: 20px; /* 为自定义标记留出空间 */
+  padding-left: 25px; /* 为自定义标记留出空间 */
 }
 
+/* TOC 支持6级嵌套 */
 .table-of-contents .toc ul li::before {
-  content: '•'; /* 默认标记为圆点 */
+  content: '•'; /* 一级标记为圆点 */
   position: absolute;
   left: 0;
   color: var(--primary-color);
@@ -156,17 +144,31 @@ code {
 }
 
 .table-of-contents .toc ul li ul li::before {
-  content: '–'; /* 嵌套一级标记为短横线 */
+  content: '–'; /* 二级标记为短横线 */
   color: var(--secondary-color);
 }
 
 .table-of-contents .toc ul li ul li ul li::before {
-  content: '•'; /* 嵌套二级标记恢复圆点 */
+  content: '•'; /* 三级标记为圆点 */
   color: var(--primary-color);
 }
 
+.table-of-contents .toc ul li ul li ul li ul li::before {
+  content: '–'; /* 四级标记为短横线 */
+  color: var(--secondary-color);
+}
+
+.table-of-contents .toc ul li ul li ul li ul li ul li::before {
+  content: '•'; /* 五级标记为圆点 */
+  color: var(--primary-color);
+}
+
+.table-of-contents .toc ul li ul li ul li ul li ul li::before {
+  content: '–'; /* 六级标记为短横线 */
+  color: var(--secondary-color);
+}
+
 .table-of-contents .toc a {
-  text-decoration: none;
   color: var(--primary-color);
   transition: color 0.3s ease;
 }
@@ -176,18 +178,22 @@ code {
   text-decoration: underline;
 }
 
-/* 变量定义（可选，根据您的设计调整） */
-:root {
-  --primary-color: #007acc; /* 主色调 */
-  --secondary-color: #005fa3; /* 辅助色调 */
-  --text-color: #333;
-  --background-color: #fdfdfd;
-  --footer-background: #f5f5f5;
-  --font-family-body: 'Roboto', sans-serif;
-  --font-family-headings: 'Merriweather', serif;
+/* 响应式调整 */
+@media (max-width: 1200px) {
+  .table-of-contents .toc ul li {
+    padding-left: 15px;
+  }
+
+  .table-of-contents .toc ul li::before {
+    left: -5px;
+  }
+
+  body {
+    padding: 2% 10%; /* 小屏幕调整左右内边距为5% */
+  }
 }
 
-/* 响应式调整（可选） */
+/* 响应式调整 */
 @media (max-width: 600px) {
   .table-of-contents .toc ul li {
     padding-left: 15px;
@@ -196,18 +202,15 @@ code {
   .table-of-contents .toc ul li::before {
     left: -5px;
   }
+
+  body {
+    padding: 2% 5%; /* 小屏幕调整左右内边距为5% */
+  }
 }
-
-
-
-
-
-
-
-
 
 /* 样式调整：文章标题和日期 */
 .post-title {
+  font-family: var(--font-family-headings);
   font-size: 2.5em;
   margin-bottom: 10px;
 }
@@ -223,4 +226,189 @@ code {
   border: none;
   border-top: 2px solid #007BFF;
   margin: 20px 0;
+}
+
+/* FAQ 样式 */
+.faq {
+  margin-top: 40px;
+}
+
+.faq h2 {
+  font-size: 1.5em;
+}
+
+.faq p {
+  margin: 10px 0;
+}
+
+/* 页脚 */
+footer {
+  margin-top: 40px;
+  font-size: 0.9em;
+  color: #555;
+  text-align: center;
+  /* background-color: var(--footer-background); */
+  padding: 20px 0;
+}
+
+.footer-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.footer-links a {
+  margin: 0 10px;
+  color: var(--primary-color);
+}
+
+.footer-links a:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+/* 返回顶部按钮 */
+#back-to-top {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  display: none;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2em;
+  z-index: 1000;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+#back-to-top:hover {
+  background-color: var(--secondary-color);
+}
+
+/* 切换暗黑模式按钮 */
+#toggle-dark-mode {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2em;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+#toggle-dark-mode:hover {
+  background-color: var(--secondary-color);
+}
+
+/* 社交分享按钮 */
+.social-share {
+  display: flex;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.social-share a {
+  display: flex;
+  align-items: center;
+  color: var(--primary-color);
+  transition: color 0.3s ease;
+}
+
+.social-share a i {
+  margin-right: 8px;
+}
+
+.social-share a:hover {
+  color: var(--secondary-color);
+}
+
+/* 相关文章 */
+.related-posts {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #eaeaea;
+}
+
+.related-posts h3 {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.related-posts .related-post {
+  margin-bottom: 10px;
+}
+
+.related-posts a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.related-posts a:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+/* 动画 */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 暗黑模式 */
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode a {
+  color: #bb86fc;
+}
+
+body.dark-mode .table-of-contents h2 {
+  color: #bb86fc;
+  border-bottom-color: #bb86fc;
+}
+
+body.dark-mode .post-date {
+  color: #aaa;
+}
+
+body.dark-mode footer {
+  background-color: #1e1e1e;
+  color: #aaa;
+}
+
+body.dark-mode .social-share a {
+  color: #bb86fc;
+}
+
+body.dark-mode .social-share a:hover {
+  color: #fff176;
+}
+
+body.dark-mode .related-posts h3 {
+  color: #bb86fc;
+}
+
+body.dark-mode .related-posts a {
+  color: #bb86fc;
+}
+
+body.dark-mode .related-posts a:hover {
+  color: #fff176;
 }
