@@ -95,11 +95,12 @@ footer {
   padding: 10px;
   border-bottom: 1px solid #ddd;
 }
+
 /* 
 .blog-item .date {
   /* flex: 3;
    */
-    /*font-family: "Edu AU VIC WA NT Hand";
+/*font-family: "Edu AU VIC WA NT Hand";
 }
  */
 
@@ -118,4 +119,108 @@ pre,
 code {
   font-family: "IBM Plex Mono";
   font-size: 14px;
+}
+
+
+/* 样式调整：目录部分 */
+.table-of-contents {
+  margin: 20px 0;
+}
+
+.table-of-contents h2 {
+  font-size: 1.8em;
+  margin-bottom: 15px;
+  /* border-bottom: 2px solid var(--primary-color); */
+  padding-bottom: 5px;
+  /* color: var(--primary-color); */
+}
+
+.table-of-contents .toc ul {
+  list-style: none; /* 移除默认列表样式 */
+  padding-left: 0;
+  margin: 0;
+}
+
+.table-of-contents .toc ul li {
+  margin-bottom: 8px;
+  position: relative;
+  padding-left: 20px; /* 为自定义标记留出空间 */
+}
+
+.table-of-contents .toc ul li::before {
+  content: '•'; /* 默认标记为圆点 */
+  position: absolute;
+  left: 0;
+  color: var(--primary-color);
+  font-size: 0.8em;
+}
+
+.table-of-contents .toc ul li ul li::before {
+  content: '–'; /* 嵌套一级标记为短横线 */
+  color: var(--secondary-color);
+}
+
+.table-of-contents .toc ul li ul li ul li::before {
+  content: '•'; /* 嵌套二级标记恢复圆点 */
+  color: var(--primary-color);
+}
+
+.table-of-contents .toc a {
+  text-decoration: none;
+  color: var(--primary-color);
+  transition: color 0.3s ease;
+}
+
+.table-of-contents .toc a:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+/* 变量定义（可选，根据您的设计调整） */
+:root {
+  --primary-color: #007acc; /* 主色调 */
+  --secondary-color: #005fa3; /* 辅助色调 */
+  --text-color: #333;
+  --background-color: #fdfdfd;
+  --footer-background: #f5f5f5;
+  --font-family-body: 'Roboto', sans-serif;
+  --font-family-headings: 'Merriweather', serif;
+}
+
+/* 响应式调整（可选） */
+@media (max-width: 600px) {
+  .table-of-contents .toc ul li {
+    padding-left: 15px;
+  }
+
+  .table-of-contents .toc ul li::before {
+    left: -5px;
+  }
+}
+
+
+
+
+
+
+
+
+
+/* 样式调整：文章标题和日期 */
+.post-title {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.post-date {
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 1em;
+}
+
+/* 样式调整：分割线 */
+.divider {
+  border: none;
+  border-top: 2px solid #007BFF;
+  margin: 20px 0;
 }
