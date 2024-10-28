@@ -7,11 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/colin.jpg">
 
-  <!-- Need to change in every new file  -->
+  <!-- 每个新文件需要更改 -->
   <link rel="canonical" href="https://www.oyyko.com/blog">
 
-  <title>Colin Zhang</title>
-  <!-- <meta name="title" content="Colin Zhang"> -->
+  <title>Value categories in Cpp - Colin Zhang</title>
+  <!-- <meta name="title" content="Value categories in Cpp"> -->
   <!-- <meta name="description" content="Colin Zhang's personal website"> -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,7 +19,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/atom-one-light.min.css">
-</head>
 </head>
 
 <body>
@@ -33,7 +32,38 @@
     </nav>
   </header>
 
-  <h2>Intro</h2>
+  <!-- 文章标题 -->
+  <div class="post-title">Value categories in Cpp</div>
+
+  <!-- 文章日期 -->
+  <div class="post-date">2022-08-23</div>
+
+  <!-- 分割线 -->
+  <hr class="divider">
+
+  <!-- 目录部分开始 -->
+  <div class="table-of-contents">
+    <h2>Table of Contents</h2>
+    <div class="toc">
+<ul>
+<li><a href="#intro">Intro</a><ul>
+<li><a href="#test1">TEST1</a><ul>
+<li><a href="#test2">TEST2</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#temporary-materialization">Temporary materialization</a></li>
+<li><a href="#decltype-and-value-categories">Decltype and value categories</a></li>
+<li><a href="#stdmove">std::move</a></li>
+</ul>
+</div>
+
+  </div>
+  <!-- 目录部分结束 -->
+
+  <!-- 正文内容开始 -->
+  <h2 id="intro">Intro</h2>
 <pre><code class="language-cpp">#define IS_XVALUE(expr) \
 (is_rvalue_reference&lt;decltype((expr))&gt;{})
 #define IS_PRVALUE(expr) \
@@ -55,7 +85,9 @@ The one that has no identity but can be moved is called PRVALUE.</p>
 <pre><code class="language-cpp">std::move(x);
 a.m, the member of object expression, where a is an rvalue and m is a non-static data member of non-reference type;
 </code></pre>
-<h2>Temporary materialization</h2>
+<h3 id="test1">TEST1</h3>
+<h4 id="test2">TEST2</h4>
+<h2 id="temporary-materialization">Temporary materialization</h2>
 <p>The most useful example to help you understand XVALUE is: Temporary materialization.</p>
 <pre><code class="language-cpp">struct S { int m; }; 
 int i = S().m; // member access expects glvalue as of C++17;
@@ -63,20 +95,21 @@ int i = S().m; // member access expects glvalue as of C++17;
 </code></pre>
 <p>As the cppreference goes: A prvalue of any complete type T can be converted to an xvalue of the same type T. This conversion initializes a temporary object of type T from the prvalue by evaluating the prvalue with the temporary object as its result object, and produces an xvalue denoting the temporary object. If T is a class or array of class type, it must have an accessible and non-deleted destructor.</p>
 <p>So the key difference between XVALUE and PRVALUE is that can we <strong>reuse</strong> the resources of it. We cannot reuse the number 3 or 3.7 but <strong>we can reuse the memory allocated for a temporary string object</strong>.</p>
-<h2>Decltype and value categories</h2>
+<h2 id="decltype-and-value-categories">Decltype and value categories</h2>
 <p>Decltype is a good tool to help us determine the category of an expression. </p>
 <p>Because its behavior is to generate an rvalue reference for XVALUE, an unreferenced type for PRVALUE, and an lvalue reference for LVALUE.</p>
 <p>Well, someone may argue that if <code>int x=3;</code> then <code>x is an LVALUE but decltype(x) is int itself rather than int&amp;.</code> That's because the special case for id-expr in the behavior of decltype.</p>
 <p>If the argument is an unparenthesized id-expression or an unparenthesized class member access expression, then decltype yields the type of the entity named by this expression. If there is no such entity, or if the argument names a set of overloaded functions, the program is ill-formed.</p>
 <p>So the right way is <code>int x=3; decltype((x)) xref=x;</code>. Here the type of <code>xref</code> is <code>int&amp;</code>.</p>
-<h2>std::move</h2>
+<h2 id="stdmove">std::move</h2>
 <p>The famous function <code>move</code> actually does nothing to do with "move something". Actually, it just change the value category of the parameter from LVALUE to XVALUE. In the most cases, you should call move using an LVALUE.</p>
 <p>std::move is used to <strong>indicate</strong> that an object t may be "moved from", i.e. allowing the efficient transfer of resources from t to another object.</p>
 <p>In particular, std::move produces an xvalue expression that identifies its argument t. It is exactly equivalent to a static_cast to an rvalue reference type.</p>
+  <!-- 正文内容结束 -->
 
   <footer>
       <p>© 2024 Colin Zhang. All rights reserved.</p>
-      <p>Last updated on August 04, 2024.</p>
+      <p>Last updated on October 28, 2024.</p>
   </footer>
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
