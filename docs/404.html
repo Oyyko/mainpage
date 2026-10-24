@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Moved to jiaz.dev</title>
+<link rel="canonical" href="https://jiaz.dev/">
+<script>
+(function () {
+  var moved = {"n-queens": "/blog/n-queens/", "c_hello_world": "/blog/c-hello-world-again/", "ccpc_huawei": "/blog/ccpc-huawei-mean-puzzle/", "cpp3": "/blog/emplace-back-and-reallocation/", "use-cpp17-on-vscode-clangd": "/blog/clangd-cpp-standard/", "value_categories_in_cpp": "/blog/value-categories-in-cpp/", "value_catagories_in_cpp": "/blog/value-categories-in-cpp/", "erfen": "/blog/binary-search-framework/"};
+  var segs = location.pathname.split("/");
+  var target = "/";
+  for (var i = 0; i < segs.length; i++) {
+    var s = segs[i].replace(/\.html$/, "");
+    if (moved.hasOwnProperty(s)) { target = moved[s]; break; }
+  }
+  location.replace("https://jiaz.dev" + target);
+})();
+</script>
+<meta http-equiv="refresh" content="2; url=https://jiaz.dev/">
+</head>
+<body>
+<p>This site has moved to <a href="https://jiaz.dev/">jiaz.dev</a>.</p>
+</body>
+</html>
